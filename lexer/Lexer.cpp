@@ -23,6 +23,12 @@ std::vector<Token> Lexer::tokenize() {
         } else if (current_char == '+' || current_char == '-' || current_char == '*' || current_char == '/') {
             tokens.push_back({TokenType::Operator, std::string(1, current_char)});
             position++;
+        } else if (current_char == '/') {
+            if (position + 1 < source.length() && source[position + 1] == '/') {
+                lexComment(); // Yorum satırı işleme
+            } else {
+                position++;
+            }
         } else {
             // Diğer durumlar için hata işleme veya geçme
             position++;
@@ -56,8 +62,16 @@ Token Lexer::lexIdentifier() {
     std::string identifier = source.substr(start, position - start);
     if (identifier == "ana" || identifier == "tam" || identifier == "gerçek" || identifier == "metin" ||
         identifier == "dizi" || identifier == "eğer" || identifier == "değilse" || identifier == "döngü" ||
-        identifier == "nesne" || identifier == "metot") { // "metot" anahtarı eklendi
+        identifier == "nesne" || identifier == "metot") {
         return {TokenType::Anahtar_Kelime, identifier};
     }
     return {TokenType::Tanımsız, identifier};
+}
+
+Token Lexer::lexComment() {
+    size_t start = position;
+    while (position < source.length() && source[position] != '\n') {
+        position++;
+    }
+    return {TokenType::Yorum, source.substr(start, position - start)};
 }

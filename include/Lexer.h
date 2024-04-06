@@ -14,8 +14,8 @@ enum class TokenType {
     Ayraç,
     Operator,
     Dönüş,
-    Nesne,
-    Metot, // Yeni eklendi
+    Nesne, // Yeni eklendi
+    Yorum, // Yeni eklendi
     Tanımsız
 };
 
@@ -39,6 +39,7 @@ private:
     Token lexNumber();
     Token lexString();
     Token lexIdentifier();
+    Token lexComment(); // Yeni eklendi
 };
 
 #endif // LEXER_H

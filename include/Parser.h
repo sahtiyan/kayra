@@ -28,12 +28,13 @@ private:
     void parseLoopStatement();
     void parseReturnStatement();
     void parseObjectDeclaration();
-    void parseMethodDeclaration(); // "metot" anahtarı eklendi
     void parseInteger();
     void parseFloat();
     void parseString();
     void parseDelimiter();
     void parseOperator();
+    void parseComment(); // Yeni eklendi
+    void parseMethodDeclaration(); // Yeni eklendi
 };
 
 #endif // PARSER_H

@@ -56,7 +56,7 @@ void Parser::parseKeyword() {
         parseReturnStatement();
     } else if (keyword.value == "nesne") {
         parseObjectDeclaration();
-    } else if (keyword.value == "metot") { // "metot" anahtarı eklendi
+    } else if (keyword.value == "metot") {
         parseMethodDeclaration(); // "metot" anahtarı eklendi
     }
 }
