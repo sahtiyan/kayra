@@ -55,6 +55,8 @@ Token Lexer::lexIdentifier() {
     if (identifier == "ana" || identifier == "tam" || identifier == "gerçek" || identifier == "metin" ||
         identifier == "dizi" || identifier == "eğer" || identifier == "değilse" || identifier == "döngü") {
         return {TokenType::Anahtar_Kelime, identifier};
+    } else if (identifier == "dönüş") {
+        return {TokenType::Dönüş, identifier};
     }
     return {TokenType::Tanımsız, identifier};
 }

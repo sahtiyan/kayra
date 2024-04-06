@@ -11,6 +11,7 @@ enum class TokenType {
     Metin,
     Ayraç,
     Operator,
+    Dönüş,
     Tanımsız
 };
 

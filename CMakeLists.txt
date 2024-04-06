@@ -18,5 +18,16 @@ set(HEADERS
     include/Parser.h
 )
 
+# Örnek dosyaları ekle
+set(EXAMPLES 
+    examples/merhaba_dunya.ky
+    examples/nesne_ornek.ky # Yeni dosya adı
+)
+
 # Yürütülebilir dosyayı oluştur
 add_executable(kayra ${SOURCES} ${HEADERS})
+
+# Örnek dosyaları hedefe kopyala
+foreach(EXAMPLE ${EXAMPLES})
+    file(COPY ${EXAMPLE} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/examples)
+endforeach()

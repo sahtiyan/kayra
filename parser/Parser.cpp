@@ -50,6 +50,8 @@ void Parser::parseKeyword() {
         parseElseStatement();
     } else if (keyword.value == "döngü") {
         parseLoopStatement();
+    } else if (keyword.value == "dönüş") {
+        parseReturnStatement();
     }
 }
 
@@ -116,4 +118,9 @@ void Parser::parseDelimiter() {
 void Parser::parseOperator() {
     // Operatörleri işle
     std::cout << "Operatörleri işle: " << tokens[position++].value << std::endl;
+}
+
+void Parser::parseReturnStatement() {
+    // Dönüş ifadesini işle
+    std::cout << "Dönüş ifadesini işle" << std::endl;
 }

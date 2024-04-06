@@ -24,6 +24,7 @@ private:
     void parseIfStatement();
     void parseElseStatement();
     void parseLoopStatement();
+    void parseReturnStatement(); // "dönüş" anahtarını işlemek için fonksiyon eklendi
     void parseInteger();
     void parseFloat();
     void parseString();
