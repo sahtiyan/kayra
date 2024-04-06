@@ -1,0 +1,18 @@
+ana {
+  yazdır("Merhaba Kayra!");
+  tam sayı = 10;
+  gerçek pi = 3.14;
+  metin metinDeger = "Bu bir metin değeri";
+  dizi diziDeger = {1, 2, 3, 4};
+
+  eğer (sayi > 5) {
+    yazdır("Sayi 5'ten büyüktür");
+  } değilse {
+    yazdır("Sayi 5'ten küçük veya eşittir");
+  }
+
+  döngü (i = 0; i < diziDeger.boyut; i++) {
+    yazdır(diziDeger[i]);
+  }
+}
+
