@@ -1,3 +1,5 @@
+// Lexer.h
+
 #ifndef LEXER_H
 #define LEXER_H
 
@@ -12,6 +14,8 @@ enum class TokenType {
     Ayraç,
     Operator,
     Dönüş,
+    Nesne,
+    Metot, // Yeni eklendi
     Tanımsız
 };
 

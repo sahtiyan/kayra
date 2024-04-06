@@ -21,7 +21,8 @@ set(HEADERS
 # Örnek dosyaları ekle
 set(EXAMPLES 
     examples/merhaba_dunya.ky
-    examples/nesne_ornek.ky # Yeni dosya adı
+    examples/oo_ornek.ky
+    examples/nesne_ornek.ky # Yeni dosya eklendi
 )
 
 # Yürütülebilir dosyayı oluştur

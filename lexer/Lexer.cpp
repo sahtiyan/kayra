@@ -1,3 +1,5 @@
+// Lexer.cpp
+
 #include "../include/Lexer.h"
 #include <cctype>
 
@@ -53,10 +55,9 @@ Token Lexer::lexIdentifier() {
     }
     std::string identifier = source.substr(start, position - start);
     if (identifier == "ana" || identifier == "tam" || identifier == "gerçek" || identifier == "metin" ||
-        identifier == "dizi" || identifier == "eğer" || identifier == "değilse" || identifier == "döngü") {
+        identifier == "dizi" || identifier == "eğer" || identifier == "değilse" || identifier == "döngü" ||
+        identifier == "nesne" || identifier == "metot") { // "metot" anahtarı eklendi
         return {TokenType::Anahtar_Kelime, identifier};
-    } else if (identifier == "dönüş") {
-        return {TokenType::Dönüş, identifier};
     }
     return {TokenType::Tanımsız, identifier};
 }

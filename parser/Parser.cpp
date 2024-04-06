@@ -1,3 +1,5 @@
+// Parser.cpp
+
 #include "../include/Parser.h"
 #include <iostream>
 
@@ -52,6 +54,10 @@ void Parser::parseKeyword() {
         parseLoopStatement();
     } else if (keyword.value == "dönüş") {
         parseReturnStatement();
+    } else if (keyword.value == "nesne") {
+        parseObjectDeclaration();
+    } else if (keyword.value == "metot") { // "metot" anahtarı eklendi
+        parseMethodDeclaration(); // "metot" anahtarı eklendi
     }
 }
 
@@ -123,4 +129,14 @@ void Parser::parseOperator() {
 void Parser::parseReturnStatement() {
     // Dönüş ifadesini işle
     std::cout << "Dönüş ifadesini işle" << std::endl;
+}
+
+void Parser::parseObjectDeclaration() {
+    // Nesne tanımını işle
+    std::cout << "Nesne tanımını işle" << std::endl;
+}
+
+void Parser::parseMethodDeclaration() {
+    // Metot tanımını işle
+    std::cout << "Metot tanımını işle" << std::endl;
 }

@@ -1,3 +1,5 @@
+// Parser.h
+
 #ifndef PARSER_H
 #define PARSER_H
 
@@ -24,7 +26,9 @@ private:
     void parseIfStatement();
     void parseElseStatement();
     void parseLoopStatement();
-    void parseReturnStatement(); // "dönüş" anahtarını işlemek için fonksiyon eklendi
+    void parseReturnStatement();
+    void parseObjectDeclaration();
+    void parseMethodDeclaration(); // "metot" anahtarı eklendi
     void parseInteger();
     void parseFloat();
     void parseString();

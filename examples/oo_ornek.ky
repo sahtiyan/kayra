@@ -1,0 +1,18 @@
+nesne Ogrenci {
+    tam sayi;
+    metin isim;
+
+    metot yazdir() {
+        yazdır("Öğrenci ismi: " + isim);
+        yazdır("Öğrenci numarası: " + sayi);
+    }
+}
+
+ana {
+    Ogrenci ogrenci1;
+    ogrenci1.isim = "Ahmet";
+    ogrenci1.sayi = 123456;
+    ogrenci1.yazdir();
+
+    dönüş 0;
+}
