@@ -30,3 +30,23 @@
 
 # Build directory
 /build
+
+# C++ related files and directories
+*.suo
+*.user
+*.sdf
+*.opensdf
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.pdb
+
+# C++ static libraries
+*.a
+
+# Other common libraries
+*.lib
+*.dll
+*.so
+*.dylib
