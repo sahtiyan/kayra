@@ -1,6 +1,6 @@
 ana {
   yazdır("Merhaba Kayra!");
-  tam sayı = 10;
+  tam sayi = 10;
   gerçek pi = 3.14;
   metin metinDeger = "Bu bir metin değeri";
   dizi diziDeger = {1, 2, 3, 4};
@@ -15,4 +15,3 @@ ana {
     yazdır(diziDeger[i]);
   }
 }
-
