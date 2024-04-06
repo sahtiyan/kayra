@@ -1,6 +1,7 @@
 // Lexer.cpp
 
 #include "../include/Lexer.h"
+#include <iostream>
 #include <cctype>
 
 Lexer::Lexer(std::string src) : source(src), position(0) {}
@@ -11,7 +12,10 @@ std::vector<Token> Lexer::tokenize() {
         if (isdigit(current_char)) {
             tokens.push_back(lexNumber());
         } else if (current_char == '"') {
-            tokens.push_back(lexString());
+            Token token = lexString();
+            tokens.push_back(token);
+            // Metin tokenini aldığımızda metni ekrana yazdıralım
+            std::cout << "Metin tokeni: " << token.value << std::endl;
         } else if (isalpha(current_char)) {
             tokens.push_back(lexIdentifier());
         } else if (current_char == '{' || current_char == '}') {
@@ -46,12 +50,13 @@ Token Lexer::lexNumber() {
 }
 
 Token Lexer::lexString() {
-    size_t start = ++position;
+    size_t start = ++position; // Çift tırnak işaretini atlayarak başlayalım
     while (position < source.length() && source[position] != '"') {
         position++;
     }
-    position++;
-    return {TokenType::Metin, source.substr(start, position - start - 1)};
+    std::string text = source.substr(start, position - start); // Çift tırnak işareti olmadan metni al
+    position++; // Son çift tırnak işaretini geç
+    return {TokenType::Metin, text};
 }
 
 Token Lexer::lexIdentifier() {

@@ -1,5 +1,3 @@
-// Parser.cpp
-
 #include "../include/Parser.h"
 #include <iostream>
 
@@ -31,6 +29,8 @@ void Parser::parse() {
                 // Hata işleme veya geçme
                 break;
         }
+        // Pozisyonu artır
+        position++;
     }
 }
 
@@ -112,8 +112,12 @@ void Parser::parseFloat() {
 }
 
 void Parser::parseString() {
-    // Metini işle
-    std::cout << "Metini işle: " << tokens[position++].value << std::endl;
+    // Metni işle
+    std::string text = tokens[position].value;
+    // Tırnak işaretlerini kaldır
+    text = text.substr(1, text.length() - 2);
+    std::cout << "Metini işle: " << text << std::endl;
+    position++; // Pozisyonu artır
 }
 
 void Parser::parseDelimiter() {
