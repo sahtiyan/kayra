@@ -16,6 +16,7 @@ enum class TokenType {
     Dönüş,
     Nesne, // Yeni eklendi
     Yorum, // Yeni eklendi
+    Hata,  // Yeni eklendi
     Tanımsız
 };
 

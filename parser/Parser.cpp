@@ -1,9 +1,18 @@
+// Parser.cpp
+
 #include "../include/Parser.h"
 #include <iostream>
 
 Parser::Parser(std::vector<Token> t) : tokens(t), position(0) {}
 
 void Parser::parse() {
+    parseMainFunction(); // Ana fonksiyonu doğrudan burada çağırın
+}
+
+void Parser::parseMainFunction() {
+    // Ana fonksiyonu işle
+    std::cout << "Ana fonksiyon işle" << std::endl;
+
     while (position < tokens.size()) {
         Token current_token = tokens[position];
         switch (current_token.type) {
@@ -37,7 +46,7 @@ void Parser::parse() {
 void Parser::parseKeyword() {
     Token keyword = tokens[position++];
     if (keyword.value == "ana") {
-        parseMainFunction();
+        // Ana fonksiyonu işleme gerek yok, zaten parseMainFunction() içindeyiz
     } else if (keyword.value == "tam") {
         parseIntegerDeclaration();
     } else if (keyword.value == "gerçek") {
@@ -59,11 +68,6 @@ void Parser::parseKeyword() {
     } else if (keyword.value == "metot") {
         parseMethodDeclaration(); // "metot" anahtarı eklendi
     }
-}
-
-void Parser::parseMainFunction() {
-    // Ana fonksiyonu işle
-    std::cout << "Ana fonksiyon işle" << std::endl;
 }
 
 void Parser::parseIntegerDeclaration() {
