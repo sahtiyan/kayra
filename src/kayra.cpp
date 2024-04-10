@@ -18,28 +18,35 @@ void printHelp() {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc < 2 || string(argv[1]) == "-h" || string(argv[1]) == "--help") {
+    if (argc < 2) {
         printHelp();
         return 0;
     }
 
-    vector<string> args(argv + 1, argv + argc);
-    vector<string> files;
+    string arg1 = argv[1];
+    if (arg1 == "-h" || arg1 == "--help") {
+        printHelp();
+        return 0;
+    }
 
-    auto run_flag = find(args.begin(), args.end(), "-r");
-    if (run_flag == args.end()) run_flag = find(args.begin(), args.end(), "--run");
-
-    if (run_flag == args.end()) {
-        cout << "Geçersiz kullanım: En az bir dosya belirtilmeli." << endl;
+    if (arg1 != "-r" && arg1 != "--run") {
+        cout << "Geçersiz bayrak: " << arg1 << endl;
         return 1;
-    } else {
-        for (auto it = next(run_flag); it != args.end(); ++it) {
-            if (it->at(0) == '-') {
-                cout << "Geçersiz bayrak: " << *it << endl;
-                return 1;
-            }
-            files.push_back(*it);
+    }
+
+    vector<string> files;
+    for (int i = 2; i < argc; ++i) {
+        string arg = argv[i];
+        if (arg.empty() || arg[0] == '-') {
+            cout << "Geçersiz bayrak veya dosya adı: " << arg << endl;
+            return 1;
         }
+        files.push_back(arg);
+    }
+
+    if (files.empty()) {
+        cout << "Hata: Bir Kayra kaynak dosyası belirtilmedi." << endl;
+        return 1;
     }
 
     // Dosyaları işleme
