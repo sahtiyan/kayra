@@ -109,6 +109,12 @@ Token Lexer::lexOperator() {
     else if (op == "!=") type = TokenType::Eşit_Değil;
     else if (op == "<=") type = TokenType::Küçük_Eşittir;
     else if (op == ">=") type = TokenType::Büyük_Eşittir;
+    else if (op == "=") type = TokenType::Atama;
+    else if (op == "&") type = TokenType::Mantıksal_VE;
+    else if (op == "|") type = TokenType::Mantıksal_VYA;
+    else if (op == "^") type = TokenType::Mantıksal_XOR;
+    else if (op == "<<") type = TokenType::Kaydırma_Sola;
+    else if (op == ">>") type = TokenType::Kaydırma_Sağ;
 
     return {type, op};
 }

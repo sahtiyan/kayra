@@ -19,19 +19,25 @@ enum class TokenType {
     Noktalı_Virgül,
     Nokta,
     Tanımsız,
-    Artı_Eşittir, // +=
-    Eksi_Eşittir, // -=
-    Çarpı_Eşittir, // *=
-    Bölü_Eşittir, // /=
-    Mod_Eşittir, // %=
-    Artış, // ++
-    Azalış, // --
-    Ve, // &&
-    Veya, // ||
-    Eşit, // ==
-    Eşit_Değil, // !=
-    Küçük_Eşittir, // <=
-    Büyük_Eşittir // >=
+    Artı_Eşittir,   // +=
+    Eksi_Eşittir,   // -=
+    Çarpı_Eşittir,  // *=
+    Bölü_Eşittir,   // /=
+    Mod_Eşittir,    // %=
+    Artış,          // ++
+    Azalış,         // --
+    Ve,             // &&
+    Veya,           // ||
+    Eşit,           // ==
+    Eşit_Değil,     // !=
+    Küçük_Eşittir,  // <=
+    Büyük_Eşittir,  // >=
+    Atama,          // =
+    Mantıksal_VE,   // &
+    Mantıksal_VYA,  // |
+    Mantıksal_XOR,  // ^
+    Kaydırma_Sola,  // <<
+    Kaydırma_Sağ    // >>
 };
 
 struct Token {
