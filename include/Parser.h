@@ -1,8 +1,8 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include "../include/Lexer.h"
 #include <vector>
-#include "Lexer.h"
 
 class Parser {
 private:
@@ -15,8 +15,8 @@ public:
     void parse();
 
 private:
-    void parseKeyword();
     void parseMainFunction();
+    void parseKeyword();
     void parseIntegerDeclaration();
     void parseFloatDeclaration();
     void parseStringDeclaration();
@@ -27,12 +27,18 @@ private:
     void parseReturnStatement();
     void parseObjectDeclaration();
     void parseMethodDeclaration();
-    void parseOperator();
-    void parseDelimiter();
+    void parseSwitchStatement();
+    void parseBreakStatement();
+    void parseContinueStatement();
+    void parseNewKeyword();
+    void parseThisKeyword();
+    void parseVoid();
     void parseAssignment();
     void parseComparison();
     void parseLogical();
     void parseBitwise();
+    void parseOperator();
+    void parseDelimiter();
     void parseComma();
     void parseSemicolon();
     void parseDot();

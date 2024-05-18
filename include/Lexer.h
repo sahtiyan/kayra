@@ -11,40 +11,42 @@ enum class TokenType {
     Metin,
     Ayraç,
     Operator,
+    Dönüş,
+    Nesne,
+    Yorum,
+    Hata,
     Virgül,
     Noktalı_Virgül,
     Nokta,
-    Atama,
-    Karsilastirma,
-    Mantiksal,
-    Bitwise,
-    Bilinmeyen
+    Tanımsız
 };
 
 struct Token {
     TokenType type;
     std::string value;
-
-    Token(TokenType t, const std::string &v) : type(t), value(v) {}
 };
 
 class Lexer {
 private:
     std::string source;
+    std::vector<Token> tokens;
     size_t position;
 
-    Token parseIdentifier();
-    Token parseNumber();
-    Token parseFloat();
-    Token parseString();
-    Token parseOperator();
-    Token parseDelimiter();
-    bool isOperator(char c);
-    bool isDelimiter(char c);
-
 public:
-    Lexer(const std::string &source);
+    Lexer(std::string src);
+
     std::vector<Token> tokenize();
+
+private:
+    Token lexNumber();
+    Token lexString();
+    Token lexIdentifier();
+    Token lexComment();
+    Token lexOperator();
+    Token lexDelimiter();
+    Token lexComma();
+    Token lexSemicolon();
+    Token lexDot();
 };
 
 #endif // LEXER_H

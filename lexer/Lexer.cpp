@@ -1,97 +1,113 @@
 #include "../include/Lexer.h"
+#include <cctype>
+#include <cstring>
+#include <iostream>
 
-Lexer::Lexer(const std::string &source) : source(source), position(0) {}
+Lexer::Lexer(std::string src) : source(src), position(0) {}
 
 std::vector<Token> Lexer::tokenize() {
-    std::vector<Token> tokens;
     while (position < source.length()) {
         char current_char = source[position];
-        if (isalpha(current_char)) {
-            tokens.push_back(parseIdentifier());
-        } else if (isdigit(current_char)) {
-            tokens.push_back(parseNumber());
-        } else if (current_char == '"') {
-            tokens.push_back(parseString());
-        } else if (isOperator(current_char)) {
-            tokens.push_back(parseOperator());
-        } else if (isDelimiter(current_char)) {
-            tokens.push_back(parseDelimiter());
+
+        if (isspace(current_char)) {
+            position++;
+            continue;
+        }
+
+        if (isdigit(current_char)) {
+            tokens.push_back(lexNumber());
+        } else if (current_char == '"' || current_char == '\'') {
+            tokens.push_back(lexString());
+        } else if (isalpha(current_char)) {
+            tokens.push_back(lexIdentifier());
+        } else if (current_char == '/' && source[position + 1] == '/') {
+            tokens.push_back(lexComment());
+        } else if (strchr("+-*/%=&|<>!", current_char)) {
+            tokens.push_back(lexOperator());
+        } else if (strchr("(){}[]", current_char)) {
+            tokens.push_back(lexDelimiter());
+        } else if (current_char == ',') {
+            tokens.push_back(lexComma());
+        } else if (current_char == ';') {
+            tokens.push_back(lexSemicolon());
+        } else if (current_char == '.') {
+            tokens.push_back(lexDot());
         } else {
+            tokens.push_back({TokenType::Hata, std::string(1, current_char)});
             position++;
         }
     }
     return tokens;
 }
 
-Token Lexer::parseIdentifier() {
-    std::string identifier;
-    while (position < source.length() && isalnum(source[position])) {
-        identifier += source[position++];
+Token Lexer::lexNumber() {
+    size_t start_position = position;
+    while (isdigit(source[position]) || source[position] == '.') {
+        position++;
     }
-    return Token(TokenType::Anahtar_Kelime, identifier);
+    return {TokenType::Tamsayı, source.substr(start_position, position - start_position)};
 }
 
-Token Lexer::parseNumber() {
-    std::string number;
-    while (position < source.length() && isdigit(source[position])) {
-        number += source[position++];
+Token Lexer::lexString() {
+    char quote_type = source[position];
+    size_t start_position = ++position;
+    while (source[position] != quote_type) {
+        position++;
     }
-    return Token(TokenType::Tamsayı, number);
+    position++; // Closing quote
+    return {TokenType::Metin, source.substr(start_position, position - start_position - 1)};
 }
 
-Token Lexer::parseString() {
-    std::string str;
-    position++;  // Skip opening quote
-    while (position < source.length() && source[position] != '"') {
-        str += source[position++];
+Token Lexer::lexIdentifier() {
+    size_t start_position = position;
+    while (isalnum(source[position]) || source[position] == '_') {
+        position++;
     }
-    position++;  // Skip closing quote
-    return Token(TokenType::Metin, str);
-}
+    std::string identifier = source.substr(start_position, position - start_position);
 
-Token Lexer::parseOperator() {
-    char current_char = source[position++];
-    switch (current_char) {
-        case '+': return Token(TokenType::Operator, "+");
-        case '-': return Token(TokenType::Operator, "-");
-        case '*': return Token(TokenType::Operator, "*");
-        case '/': return Token(TokenType::Operator, "/");
-        case '=': return Token(TokenType::Atama, "=");
-        case '<': return Token(TokenType::Karsilastirma, "<");
-        case '>': return Token(TokenType::Karsilastirma, ">");
-        case '&': return Token(TokenType::Mantiksal, "&");
-        case '|': return Token(TokenType::Mantiksal, "|");
-        case '!': return Token(TokenType::Mantiksal, "!");
-        case '%': return Token(TokenType::Operator, "%");
-        case '^': return Token(TokenType::Bitwise, "^");
-        case '~': return Token(TokenType::Bitwise, "~");
-        default: return Token(TokenType::Bilinmeyen, std::string(1, current_char));
+    TokenType type = TokenType::Anahtar_Kelime;
+    if (identifier == "ana" || identifier == "tam" || identifier == "gerçek" ||
+        identifier == "metin" || identifier == "dizi" || identifier == "eğer" ||
+        identifier == "değilse" || identifier == "döngü" || identifier == "dönüş" ||
+        identifier == "nesne" || identifier == "metot" || identifier == "boş" ||
+        identifier == "değişim" || identifier == "kes" || identifier == "devam" ||
+        identifier == "yeni" || identifier == "bu") {
+        type = TokenType::Anahtar_Kelime;
+    } else {
+        type = TokenType::Tanımsız;
     }
+
+    return {type, identifier};
 }
 
-Token Lexer::parseDelimiter() {
-    char current_char = source[position++];
-    switch (current_char) {
-        case '(': return Token(TokenType::Ayraç, "(");
-        case ')': return Token(TokenType::Ayraç, ")");
-        case '{': return Token(TokenType::Ayraç, "{");
-        case '}': return Token(TokenType::Ayraç, "}");
-        case '[': return Token(TokenType::Ayraç, "[");
-        case ']': return Token(TokenType::Ayraç, "]");
-        case ';': return Token(TokenType::Noktalı_Virgül, ";");
-        case ',': return Token(TokenType::Virgül, ",");
-        case '.': return Token(TokenType::Nokta, ".");
-        default: return Token(TokenType::Bilinmeyen, std::string(1, current_char));
+Token Lexer::lexComment() {
+    size_t start_position = position;
+    while (source[position] != '\n') {
+        position++;
     }
+    return {TokenType::Yorum, source.substr(start_position, position - start_position)};
 }
 
-bool Lexer::isOperator(char c) {
-    return c == '+' || c == '-' || c == '*' || c == '/' || c == '=' ||
-           c == '<' || c == '>' || c == '&' || c == '|' || c == '!' ||
-           c == '%' || c == '^' || c == '~';
+Token Lexer::lexOperator() {
+    size_t start_position = position;
+    while (strchr("+-*/%=&|<>!", source[position])) {
+        position++;
+    }
+    return {TokenType::Operator, source.substr(start_position, position - start_position)};
 }
 
-bool Lexer::isDelimiter(char c) {
-    return c == '(' || c == ')' || c == '{' || c == '}' || c == '[' ||
-           c == ']' || c == ';' || c == ',' || c == '.';
+Token Lexer::lexDelimiter() {
+    return {TokenType::Ayraç, std::string(1, source[position++])};
+}
+
+Token Lexer::lexComma() {
+    return {TokenType::Virgül, std::string(1, source[position++])};
+}
+
+Token Lexer::lexSemicolon() {
+    return {TokenType::Noktalı_Virgül, std::string(1, source[position++])};
+}
+
+Token Lexer::lexDot() {
+    return {TokenType::Nokta, std::string(1, source[position++])};
 }
