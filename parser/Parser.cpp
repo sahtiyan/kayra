@@ -41,6 +41,7 @@ void Parser::parseMainFunction() {
                 parseDot();
                 break;
             default:
+                std::cerr << "Bilinmeyen token: " << current_token.value << std::endl;
                 position++;
                 break;
         }
@@ -48,41 +49,47 @@ void Parser::parseMainFunction() {
 }
 
 void Parser::parseKeyword() {
-    Token keyword = tokens[position++];
-    if (keyword.value == "ana") {
-        // Ana fonksiyonu işleme gerek yok, zaten parseMainFunction() içindeyiz
-    } else if (keyword.value == "tam") {
+    Token keyword_token = tokens[position++];
+    if (keyword_token.value == "ana") {
+        parseMainFunction();
+    } else if (keyword_token.value == "tam") {
         parseIntegerDeclaration();
-    } else if (keyword.value == "gerçek") {
+    } else if (keyword_token.value == "gerçek") {
         parseFloatDeclaration();
-    } else if (keyword.value == "metin") {
+    } else if (keyword_token.value == "metin") {
         parseStringDeclaration();
-    } else if (keyword.value == "dizi") {
+    } else if (keyword_token.value == "dizi") {
         parseArrayDeclaration();
-    } else if (keyword.value == "eğer") {
+    } else if (keyword_token.value == "eğer") {
         parseIfStatement();
-    } else if (keyword.value == "değilse") {
+    } else if (keyword_token.value == "değilse") {
         parseElseStatement();
-    } else if (keyword.value == "döngü") {
+    } else if (keyword_token.value == "döngü") {
         parseLoopStatement();
-    } else if (keyword.value == "dönüş") {
+    } else if (keyword_token.value == "dönüş") {
         parseReturnStatement();
-    } else if (keyword.value == "nesne") {
+    } else if (keyword_token.value == "nesne") {
         parseObjectDeclaration();
-    } else if (keyword.value == "metot") {
+    } else if (keyword_token.value == "metot") {
         parseMethodDeclaration();
-    } else if (keyword.value == "boş") {
-        parseVoid();
-    } else if (keyword.value == "değişim") {
+    } else if (keyword_token.value == "değişim") {
         parseSwitchStatement();
-    } else if (keyword.value == "kes") {
+    } else if (keyword_token.value == "kes") {
         parseBreakStatement();
-    } else if (keyword.value == "devam") {
+    } else if (keyword_token.value == "devam") {
         parseContinueStatement();
-    } else if (keyword.value == "yeni") {
+    } else if (keyword_token.value == "yeni") {
         parseNewKeyword();
-    } else if (keyword.value == "bu") {
+    } else if (keyword_token.value == "bu") {
         parseThisKeyword();
+    } else if (keyword_token.value == "boş") {
+        parseVoid();
+    } else if (keyword_token.value == "enum") {
+        parseEnum();
+    } else if (keyword_token.value == "yapı") {
+        parseStruct();
+    } else if (keyword_token.value == "birlik") {
+        parseUnion();
     }
 }
 
@@ -148,6 +155,18 @@ void Parser::parseThisKeyword() {
 
 void Parser::parseVoid() {
     std::cout << "Boş anahtar kelimesini işle" << std::endl;
+}
+
+void Parser::parseEnum() {
+    std::cout << "Enum tanımını işle" << std::endl;
+}
+
+void Parser::parseStruct() {
+    std::cout << "Yapı tanımını işle" << std::endl;
+}
+
+void Parser::parseUnion() {
+    std::cout << "Birlik tanımını işle" << std::endl;
 }
 
 void Parser::parseAssignment() {

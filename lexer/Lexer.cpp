@@ -71,7 +71,7 @@ Token Lexer::lexIdentifier() {
         identifier == "değilse" || identifier == "döngü" || identifier == "dönüş" ||
         identifier == "nesne" || identifier == "metot" || identifier == "boş" ||
         identifier == "değişim" || identifier == "kes" || identifier == "devam" ||
-        identifier == "yeni" || identifier == "bu") {
+        identifier == "yeni" || identifier == "bu" || identifier == "enum" || identifier == "yapı" || identifier == "birlik") {
         type = TokenType::Anahtar_Kelime;
     } else {
         type = TokenType::Tanımsız;
@@ -93,7 +93,24 @@ Token Lexer::lexOperator() {
     while (strchr("+-*/%=&|<>!", source[position])) {
         position++;
     }
-    return {TokenType::Operator, source.substr(start_position, position - start_position)};
+    std::string op = source.substr(start_position, position - start_position);
+    TokenType type = TokenType::Operator;
+
+    if (op == "+=") type = TokenType::Artı_Eşittir;
+    else if (op == "-=") type = TokenType::Eksi_Eşittir;
+    else if (op == "*=") type = TokenType::Çarpı_Eşittir;
+    else if (op == "/=") type = TokenType::Bölü_Eşittir;
+    else if (op == "%=") type = TokenType::Mod_Eşittir;
+    else if (op == "++") type = TokenType::Artış;
+    else if (op == "--") type = TokenType::Azalış;
+    else if (op == "&&") type = TokenType::Ve;
+    else if (op == "||") type = TokenType::Veya;
+    else if (op == "==") type = TokenType::Eşit;
+    else if (op == "!=") type = TokenType::Eşit_Değil;
+    else if (op == "<=") type = TokenType::Küçük_Eşittir;
+    else if (op == ">=") type = TokenType::Büyük_Eşittir;
+
+    return {type, op};
 }
 
 Token Lexer::lexDelimiter() {

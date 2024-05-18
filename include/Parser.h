@@ -33,6 +33,9 @@ private:
     void parseNewKeyword();
     void parseThisKeyword();
     void parseVoid();
+    void parseEnum();
+    void parseStruct();
+    void parseUnion();
     void parseAssignment();
     void parseComparison();
     void parseLogical();
