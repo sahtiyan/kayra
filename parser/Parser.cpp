@@ -1,18 +1,13 @@
-// Parser.cpp
-
 #include "../include/Parser.h"
 #include <iostream>
 
 Parser::Parser(std::vector<Token> t) : tokens(t), position(0) {}
 
 void Parser::parse() {
-    parseMainFunction(); // Ana fonksiyonu doğrudan burada çağırın
+    parseMainFunction();
 }
 
 void Parser::parseMainFunction() {
-    // Ana fonksiyonu işle
-    std::cout << "Ana fonksiyon işle" << std::endl;
-
     while (position < tokens.size()) {
         Token current_token = tokens[position];
         switch (current_token.type) {
@@ -20,13 +15,13 @@ void Parser::parseMainFunction() {
                 parseKeyword();
                 break;
             case TokenType::Tamsayı:
-                parseInteger();
+                parseIntegerDeclaration();
                 break;
             case TokenType::Ondalıklı_Sayı:
-                parseFloat();
+                parseFloatDeclaration();
                 break;
             case TokenType::Metin:
-                parseString();
+                parseStringDeclaration();
                 break;
             case TokenType::Ayraç:
                 parseDelimiter();
@@ -34,12 +29,31 @@ void Parser::parseMainFunction() {
             case TokenType::Operator:
                 parseOperator();
                 break;
+            case TokenType::Virgül:
+                parseComma();
+                break;
+            case TokenType::Noktalı_Virgül:
+                parseSemicolon();
+                break;
+            case TokenType::Nokta:
+                parseDot();
+                break;
+            case TokenType::Atama:
+                parseAssignment();
+                break;
+            case TokenType::Karsilastirma:
+                parseComparison();
+                break;
+            case TokenType::Mantiksal:
+                parseLogical();
+                break;
+            case TokenType::Bitwise:
+                parseBitwise();
+                break;
             default:
-                // Hata işleme veya geçme
+                position++;
                 break;
         }
-        // Pozisyonu artır
-        position++;
     }
 }
 
@@ -61,90 +75,85 @@ void Parser::parseKeyword() {
         parseElseStatement();
     } else if (keyword.value == "döngü") {
         parseLoopStatement();
-    } else if (keyword.value == "dönüş") {
-        parseReturnStatement();
     } else if (keyword.value == "nesne") {
         parseObjectDeclaration();
     } else if (keyword.value == "metot") {
-        parseMethodDeclaration(); // "metot" anahtarı eklendi
+        parseMethodDeclaration();
+    } else if (keyword.value == "dön") {
+        parseReturnStatement();
+    } else if (keyword.value == "boş") {
+        parseVoid();
+    } else if (keyword.value == "değiştir") {
+        parseSwitchStatement();
+    } else if (keyword.value == "dur") {
+        parseBreakStatement();
+    } else if (keyword.value == "devam") {
+        parseContinueStatement();
+    } else if (keyword.value == "yeni") {
+        parseNewKeyword();
+    } else if (keyword.value == "bu") {
+        parseThisKeyword();
+    } else {
+        std::cerr << "Bilinmeyen anahtar kelime: " << keyword.value << std::endl;
     }
 }
 
 void Parser::parseIntegerDeclaration() {
-    // Tamsayı tanımını işle
-    std::cout << "Tamsayı tanımını işle" << std::endl;
+    std::cout << "Tamsayı değişkeni bildirimi işleniyor" << std::endl;
 }
 
 void Parser::parseFloatDeclaration() {
-    // Ondalıklı sayı tanımını işle
-    std::cout << "Ondalıklı sayı tanımını işle" << std::endl;
+    std::cout << "Ondalıklı sayı değişkeni bildirimi işleniyor" << std::endl;
 }
 
 void Parser::parseStringDeclaration() {
-    // Metin tanımını işle
-    std::cout << "Metin tanımını işle" << std::endl;
+    std::cout << "Metin değişkeni bildirimi işleniyor" << std::endl;
 }
 
 void Parser::parseArrayDeclaration() {
-    // Dizi tanımını işle
-    std::cout << "Dizi tanımını işle" << std::endl;
+    std::cout << "Dizi bildirimi işleniyor" << std::endl;
 }
 
 void Parser::parseIfStatement() {
-    // Koşul ifadesini işle
-    std::cout << "Koşul ifadesini işle" << std::endl;
+    std::cout << "Eğer bildirimi işleniyor" << std::endl;
 }
 
 void Parser::parseElseStatement() {
-    // Alternatif koşul ifadesini işle
-    std::cout << "Alternatif koşul ifadesini işle" << std::endl;
+    std::cout << "Değilse bildirimi işleniyor" << std::endl;
 }
 
 void Parser::parseLoopStatement() {
-    // Döngüyü işle
-    std::cout << "Döngüyü işle" << std::endl;
-}
-
-void Parser::parseInteger() {
-    // Tamsayıyı işle
-    std::cout << "Tamsayıyı işle: " << tokens[position++].value << std::endl;
-}
-
-void Parser::parseFloat() {
-    // Ondalıklı sayıyı işle
-    std::cout << "Ondalıklı sayıyı işle: " << tokens[position++].value << std::endl;
-}
-
-void Parser::parseString() {
-    // Metni işle
-    std::string text = tokens[position].value;
-    // Tırnak işaretlerini kaldır
-    text = text.substr(1, text.length() - 2);
-    std::cout << "Metini işle: " << text << std::endl;
-    position++; // Pozisyonu artır
-}
-
-void Parser::parseDelimiter() {
-    // Ayraçları işle
-    std::cout << "Ayraçları işle: " << tokens[position++].value << std::endl;
-}
-
-void Parser::parseOperator() {
-    // Operatörleri işle
-    std::cout << "Operatörleri işle: " << tokens[position++].value << std::endl;
+    std::cout << "Döngü bildirimi işleniyor" << std::endl;
 }
 
 void Parser::parseReturnStatement() {
-    // Dönüş ifadesini işle
-    std::cout << "Dönüş ifadesini işle" << std::endl;
+    std::cout << "Dönüş bildirimi işleniyor" << std::endl;
 }
 
 void Parser::parseObjectDeclaration() {
-    // Nesne tanımını işle
-    std::cout << "Nesne tanımını işle" << std::endl;
+    std::cout << "Nesne bildirimi işleniyor" << std::endl;
 }
 
 void Parser::parseMethodDeclaration() {
-    // Metot tanımını işle
-    std::cout << "Metot tanımını işle" << std::endl;
+    std::cout << "Metot bildirimi işleniyor" << std::endl;
+}
+
+void Parser::parseSwitchStatement() {
+    std::cout << "Değiştir bildirimi işleniyor" << std::endl;
+}
+
+void Parser::parseBreakStatement() {
+    std::cout << "Dur bildirimi işleniyor" << std::endl;
+}
+
+void Parser::parseContinueStatement() {
+    std::cout << "Devam bildirimi işleniyor" << std::endl;
+}
+
+void Parser::parseNewKeyword() {
+    std::cout << "Yeni bildirimi işleniyor" << std::endl;
+}
+
+void Parser::parseThisKeyword() {
+    std::cout << "Bu bildirimi işleniyor" << std::endl;
 }

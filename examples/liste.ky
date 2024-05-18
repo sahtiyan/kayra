@@ -1,0 +1,7 @@
+// Örnek Kayra kodu
+ana {
+    liste a = (1 2 3 4 5);
+    liste b = ("a" "b" "c");
+    listele(a);
+    listele(b);
+}

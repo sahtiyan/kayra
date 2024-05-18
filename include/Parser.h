@@ -1,5 +1,3 @@
-// Parser.h
-
 #ifndef PARSER_H
 #define PARSER_H
 
@@ -28,13 +26,16 @@ private:
     void parseLoopStatement();
     void parseReturnStatement();
     void parseObjectDeclaration();
-    void parseInteger();
-    void parseFloat();
-    void parseString();
-    void parseDelimiter();
+    void parseMethodDeclaration();
     void parseOperator();
-    void parseComment(); // Yeni eklendi
-    void parseMethodDeclaration(); // Yeni eklendi
+    void parseDelimiter();
+    void parseAssignment();
+    void parseComparison();
+    void parseLogical();
+    void parseBitwise();
+    void parseComma();
+    void parseSemicolon();
+    void parseDot();
 };
 
 #endif // PARSER_H

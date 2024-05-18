@@ -1,5 +1,3 @@
-// Lexer.h
-
 #ifndef LEXER_H
 #define LEXER_H
 
@@ -13,34 +11,40 @@ enum class TokenType {
     Metin,
     Ayraç,
     Operator,
-    Dönüş,
-    Nesne, // Yeni eklendi
-    Yorum, // Yeni eklendi
-    Hata,  // Yeni eklendi
-    Tanımsız
+    Virgül,
+    Noktalı_Virgül,
+    Nokta,
+    Atama,
+    Karsilastirma,
+    Mantiksal,
+    Bitwise,
+    Bilinmeyen
 };
 
 struct Token {
     TokenType type;
     std::string value;
+
+    Token(TokenType t, const std::string &v) : type(t), value(v) {}
 };
 
 class Lexer {
 private:
     std::string source;
-    std::vector<Token> tokens;
     size_t position;
 
+    Token parseIdentifier();
+    Token parseNumber();
+    Token parseFloat();
+    Token parseString();
+    Token parseOperator();
+    Token parseDelimiter();
+    bool isOperator(char c);
+    bool isDelimiter(char c);
+
 public:
-    Lexer(std::string src);
-
+    Lexer(const std::string &source);
     std::vector<Token> tokenize();
-
-private:
-    Token lexNumber();
-    Token lexString();
-    Token lexIdentifier();
-    Token lexComment(); // Yeni eklendi
 };
 
 #endif // LEXER_H
